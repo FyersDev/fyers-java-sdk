@@ -10,11 +10,14 @@ Fyers API is a set of REST-like APIs that provide integration with our in-house 
 ## Usage
 - Create a Maven Project, Use VS Code (or any preferred IDE) to create a Maven project.
 
-- Inside the project’s root folder, create a new folder named repo. Kindly refer to ```fyers-javasdk```folder for project’s structure.
+- Inside the project’s root folder, create a new folder named ```repo```. Kindly refer to ```fyers-javasdk```folder for project’s structure.
 
 - Download the [fyersjavasdk.jar](https://github.com/FyersDev/fyers-java-sdk/tree/master/dist/) file and place it in the project's root folder.
 
-- Open Git Bash and navigate to the folder containing the JAR file. Run the following Maven command to deploy the JAR to your local repository:"mvn deploy:deploy-file -Durl="file:repo" -Dfile=fyersjavasdk.jar -DgroupId=com.tts.in -DartifactId=fyersjavasdk -Dpackaging=jar -Dversion=1.0"
+- Open Git Bash and navigate to the folder containing the JAR file. Run the following Maven command to deploy the JAR to your local repository:
+```bash
+mvn deploy:deploy-file -Durl="file:repo" -Dfile=fyersjavasdk.jar -DgroupId=com.tts.in -DartifactId=fyersjavasdk -Dpackaging=jar -Dversion=1.0
+```
 
 - Open the project in VS Code and navigate to the pom.xml file. Add the following dependencies inside the <dependencies> tag:
 ```xml
@@ -47,14 +50,14 @@ Fyers API is a set of REST-like APIs that provide integration with our in-house 
         </dependency>
     </dependencies>
 ```
-Please review the pom.xml file in ```fyers-javasdk``` folder for better clarity..
+Please review the pom.xml file in ```fyers-javasdk``` folder for better clarity.
 
 - In the terminal, run the following command to clean and package the project:"mvn clean package"
 
-- After the build is successful, the SDK is ready to use. Open the App.java file located in src/main and try running the sample code from the [Fyers API documentation](https://myapi.fyers.in/docsv3).
+- After the build is successful, the SDK is ready to use. Open the App.java file located in ```src/main``` and try running the sample code from the [Fyers API documentation.](https://myapi.fyers.in/docsv3)
 
 
- ## API's Supported by Fyers Java SDK
+ ## APIs Supported by Fyers Java SDK
  
  #### User
  
@@ -106,8 +109,3 @@ Please review the pom.xml file in ```fyers-javasdk``` folder for better clarity.
  * Market Data Indices Update
  * Market Data Depth Update
  * Market Data Lite-Mode
-
-
-
-
-
