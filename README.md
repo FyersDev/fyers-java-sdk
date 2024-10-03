@@ -5,7 +5,7 @@ The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/produc
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
 
 ## Documentation
-- [Fyers API documentation](https://myapi.fyers.in/)
+- [Fyers API documentation](https://myapi.fyers.in/docsv3)
 
 ## Usage
 - Create a Maven Project, Use VS Code (or any preferred IDE) to create a Maven project.
@@ -51,7 +51,7 @@ Please review the pom.xml file in ```fyers-javasdk``` folder for better clarity.
 
 - In the terminal, run the following command to clean and package the project:"mvn clean package"
 
-- After the build is successful, the SDK is ready to use. Open the App.java file located in src/main and try running the sample code from the [Fyers API documentation](https://myapi.fyers.in/).
+- After the build is successful, the SDK is ready to use. Open the App.java file located in src/main and try running the sample code from the [Fyers API documentation](https://myapi.fyers.in/docsv3).
 
 
  ## API's Supported by Fyers Java SDK
