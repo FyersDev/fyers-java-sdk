@@ -25,7 +25,7 @@ public class App implements FyersSocketDelegate {
     public static void main(String[] args) {
         String clientID = "";
         String secretKey = "";
-        String appHashId = "";
+        String appHashId = getSHA256Hash(clientID, secretKey);
 
         String redirectURI = "https://trade.fyers.in/api-login/redirect-uri/index.html";
         String code = "";
@@ -456,6 +456,25 @@ public class App implements FyersSocketDelegate {
             System.out.println("OptionChain Error: " + stockTuple.Item2());
         }
 
+    }
+
+    public String getSHA256Hash(String clientId, String secretKey) {
+        String input = String.format("%s:%s", clientId, secretKey);
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(input.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedhash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void WebSocket() {
