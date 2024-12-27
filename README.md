@@ -34,18 +34,13 @@ Fyers API is a set of REST-like APIs that provide integration with our in-house 
 
 - Add the following inside the <repositories> tag:
 ```xml
-    <dependencies>
-        <dependency>
-            <groupId>com.tts.in</groupId>
-            <artifactId>fyersjavasdk</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20211205</version>
-        </dependency>
-    </dependencies>
+    <repositories>
+        <repository>
+        <id>project.local</id>
+        <name>project</name>
+        <url>file:${project.basedir}/repo</url>
+        </repository>
+    </repositories>
 ```
 Please review the pom.xml file in ```fyers-javasdk``` folder for better clarity..
 
