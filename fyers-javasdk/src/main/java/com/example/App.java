@@ -1,8 +1,9 @@
 package com.example;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.tts.in.model.FyersClass;
@@ -12,6 +13,7 @@ import com.tts.in.websocket.FyersSocketDelegate;
 import in.tts.hsjavalib.ChannelModes;
 
 public class App implements FyersSocketDelegate {
+    private static Logger log = LogManager.getLogger(App.class.getName());
 
     public static void main(String[] args) {
         String clientID = "M0R4WW1PYU-100";
@@ -76,6 +78,7 @@ public class App implements FyersSocketDelegate {
     @Override
     public void OnError(JSONObject error) {
         System.out.println("On Error: " + error);
+        log.error("On Error: " + error);
     }
 
     @Override

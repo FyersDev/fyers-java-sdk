@@ -1,122 +1,63 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v1.3.0
-The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
+# Fyers Java SDK : fyers-api-v3 - v1.3.1
 
-Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
+⚠️ **TESTING RELEASE** - Use this build only for testing and evaluating WebSocket reconnection.
 
-## Documentation
-- [Fyers API documentation](https://myapi.fyers.in/docsv3)
+## Quick Start
 
-## Usage
-- Create a Maven Project, Use VS Code (or any preferred IDE) to create a Maven project.
+The Fyers Java SDK includes built-in logging to help you monitor connections and debug issues.
 
-- Inside the project’s root folder, create a new folder named ```repo```. Kindly refer to ```fyers-javasdk```folder for project’s structure.
+### Where to Find Logs
 
-- Download the [fyersjavasdk.jar](https://github.com/FyersDev/fyers-java-sdk/tree/master/dist/) file and place it in the project's root folder.
+- **Log files**: As configured in log4j.properties (check the property 'log4j.appender.FILE.File' for the exact path)
+- **Console**: Also shows in your terminal
 
-- Open Git Bash and navigate to the folder containing the JAR file. Run the following Maven command to deploy the JAR to your local repository:
-```bash
-mvn deploy:deploy-file -Durl="file:repo" -Dfile=fyersjavasdk.jar -DgroupId=com.tts.in -DartifactId=fyersjavasdk -Dpackaging=jar -Dversion=1.0
+### Basic Usage
+
+Add logging to your application:
+
+```java
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+public class Test {
+    private static Logger log = LogManager.getLogger(Test.class.getName());
+    
+    public static void main(String[] args) {
+        log.info("Application started");
+        
+        // Your Fyers code here
+        FyersSocket fyersSocket = new FyersSocket();
+        
+        log.info("Trading session started");
+    }
+}
 ```
 
-- Open the project in VS Code and navigate to the pom.xml file. Add the following dependencies inside the <dependencies> tag:
-```xml
-    <dependencies>
-        <dependency>
-            <groupId>com.tts.in</groupId>
-            <artifactId>fyersjavasdk</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20211205</version>
-        </dependency>
-    </dependencies>
+### Configure Logging Level
+
+Edit `src/main/resources/log4j.properties`:
+
+```properties
+# For your application class
+log4j.logger.com.yourpackage.Test=INFO
+
+# For FyersSocket (connection logs)
+log4j.logger.com.tts.in.websocket.FyersSocket=DEBUG
 ```
 
-- Add the following inside the <repositories> tag:
-```xml
-    <repositories>
-        <repository>
-        <id>project.local</id>
-        <name>project</name>
-        <url>file:${project.basedir}/repo</url>
-        </repository>
-    </repositories>
+### Log Levels
+- **DEBUG**: Shows DEBUG + INFO + WARN + ERROR (most verbose)
+- **INFO**: Shows INFO + WARN + ERROR
+- **WARN**: Shows WARN + ERROR
+- **ERROR**: Shows ERROR only (least verbose)
+
+### Example Output
+
 ```
-Please review the pom.xml file in ```fyers-javasdk``` folder for better clarity.
-Note: If the previous fyersjavasdk package is already in use, clear the Maven cache to ensure that Maven fetches fresh dependencies and avoids conflicts with outdated packages.
-
-- In the terminal, run the following command to clean and package the project:```mvn clean package```
-
-- After the build is successful, the SDK is ready to use. Open the App.java file located in ```src/main``` and try running the sample code from the [Fyers API documentation.](https://myapi.fyers.in/docsv3)
-
-
- ## APIs Supported by Fyers Java SDK
- 
- #### User
- 
- * Profile
- * Funds
- * Holdings
-
- #### Transaction Info
- 
- * Orders
- * Positions
- * Trades
-
- #### Order Placement
- 
- * Place Order
- * Place MultiLeg Order
-
- #### GTT Orders
- 
- * GTT Single
- * GTT OCO
- * GTT Modify Order
- * GTT Cancel Order
- * GTT Order Book
-
- #### Other Transactions
- 
- * Modify Orders
- * Cancel Order
- * Exit Position
- * Convert Position
-
- #### Broker Config
- 
- * Market Status
-
- #### Data Api
- 
- * History
- * Quotes
- * Market Depth
- * Option Chain
-
- ## Web Socket
-
- #### General Socket
-
- * General Socket (orders)
- * General Socket (trades)
- * General Socket (positions)
- * General Socket (general)
-
- #### Market Data
-
- * Market Data Symbol Update
- * Market Data Indices Update
- * Market Data Depth Update
- * Market Data Lite-Mode
-
- ## Release Notes
-
- * Fixed missing symbol key in market data indices update
- * Updated WebSocket reconnection logic
- * Fixed rate limiting issue caused by internet connectivity checks
-
+2025-10-09 10:20:02.463 INFO  [main] FyersSocket:228 - connect:socket.fyers.in/hsm/v1-5/prod
+2025-10-09 10:20:03.072 INFO  [WebSocketConnectReadThread-14] Test:233 - OnMessage: {"code":200,"type":"cn","message":"Authentication done"}
+2025-10-09 10:20:03.073 INFO  [WebSocketConnectReadThread-14] Test:208 - On open: HSM Connected
+2025-10-09 10:20:03.588 INFO  [WebSocketConnectReadThread-14] Test:233 - OnMessage: {"code":200,"subscribed_symbols":["NSE:BANKNIFTY25OCT46000PE"],"type":"sub","message":"Successfully subscribed"}
+2025-10-09 10:21:14.148 INFO  [WebSocketConnectReadThread-14] FyersSocket:953 - Reconnecting to socket, please wait.... Attempt: 1
+```
