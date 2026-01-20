@@ -1,5 +1,5 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v1.2.0
+# Fyers Java SDK : fyers-api-v3 - v1.4.0
 The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
 
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
@@ -98,6 +98,14 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Market Depth
  * Option Chain
 
+ #### Price Alert
+
+ * Create Price Alert
+ * Get Price Alerts
+ * Modify Price Alert
+ * Delete Price Alert
+ * Enable/Disable Price Alert
+
  ## Web Socket
 
  #### General Socket
@@ -116,7 +124,6 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
 
  ## Release Notes
 
- * Fixed missing symbol key in market data indices update
- * Updated WebSocket reconnection logic
- * Fixed rate limiting issue caused by internet connectivity checks
+ * Added Price Alert APIs: Create, Get, Update, Delete, and Toggle price alerts
+ * Enhanced Order Socket with id_fyers field for better order tracking and identification
 
