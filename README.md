@@ -1,5 +1,5 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v1.6.0
+# Fyers Java SDK : fyers-api-v3 - v1.7.0
 The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
 
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
@@ -147,5 +147,5 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
 
  ## Release Notes
 
- * Added Order History and Trade History.
+ * Added Greeks for option chain.
 
