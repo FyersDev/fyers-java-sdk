@@ -14,8 +14,8 @@ import in.tts.hsjavalib.ChannelModes;
 public class App implements FyersSocketDelegate {
 
     public static void main(String[] args) {
-        String clientID = "M0R4WW1PYU-100";
-        String LiveToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkuZnllcnMuaW4iLCJpYXQiOjE3Mjc3NTUwMzEsImV4cCI6MTcyNzgyOTAxMSwibmJmIjoxNzI3NzU1MDMxLCJhdWQiOlsieDowIiwieDoxIiwieDoyIiwiZDoxIiwiZDoyIiwieDoxIiwieDowIl0sInN1YiI6ImFjY2Vzc190b2tlbiIsImF0X2hhc2giOiJnQUFBQUFCbS0zTVh0bzRjY2dSTmxhS3NLUHZ5NDZYN1RsN09laW5oLVVfWjJOMkNGNEVyQUxqMFc0UG0zbTFXSVF5U1R4SmR2b28wWGEyNWpOZFhkd0JqcVBiekZMZWdfaGNqcUFQcGtJdGZPVlREdkNfX2xCZz0iLCJkaXNwbGF5X25hbWUiOiJLVU1BUiBLSVNIT1JFIEtVTUFSIiwib21zIjoiSzEiLCJoc21fa2V5IjoiMjQ5MmUyMGE1YjRkMDBkZmIxODQ4ZDgyNzExZGZmMmM4MWYzNTc5MmVmNDNjMmI4YTE0NWQyZmMiLCJmeV9pZCI6IllLMDQzOTEiLCJhcHBUeXBlIjoxMDAsInBvYV9mbGFnIjoiTiJ9.srlRU8-d55f3xzdTN5R3g4kr9tUFjboW_87ZIDU1Yqw";
+        String clientID = "";
+        String LiveToken = "";
 
         FyersClass fyersClass = FyersClass.getInstance();
         fyersClass.clientId = clientID;
