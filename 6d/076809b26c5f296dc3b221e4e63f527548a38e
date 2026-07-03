@@ -1,0 +1,14 @@
+fyers-javasdk/src/main/java/com/example/App.java
+  h_e5cd7b20a98a26 17-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6d076809b26c5f296dc3b221e4e63f527548a38e",
+  "prompts": {},
+  "humans": {
+    "h_e5cd7b20a98a26": {
+      "author": "kishore-fyers <kishorekumar@fyers.in>"
+    }
+  }
+}
