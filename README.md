@@ -1,5 +1,5 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v1.8.0
+# Fyers Java SDK : fyers-api-v3 - v1.9.0
 The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
 
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
@@ -146,6 +146,11 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Market Data Lite-Mode
 
  ## Release Notes
+ **Screeners API (new)**
+ - Added `GetScreenersConfig()` — fetch screener configuration
+ - Added `GetScreenersQuery(ScreenersQueryModel)` — run query-based screeners with `screener`, `universe`, `fields`, `order_by`, and `order` params
+ - Added `GetScreenersCandlestick(ScreenersCandlestickModel)` — run candlestick pattern screeners
+ - Added `GetScreenersTechnical(ScreenersTechnicalModel)` — run technical indicator screeners
 
- * Added APIv3 support for Charges, Tax Profit & Loss, Ledger and Realised Profit & Loss History under Reports API.
+
 
