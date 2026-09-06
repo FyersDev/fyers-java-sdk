@@ -1,5 +1,5 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v2.0.0
+# Fyers Java SDK : fyers-api-v3 - v2.1.0
 The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
 
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
@@ -121,6 +121,20 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Market Depth
  * Option Chain
 
+ #### Expired Historical Data
+
+ * Futures Chain
+ * Expiry Dates
+ * Underlying Symbols
+ * FNO Historical Data
+
+ #### Screeners
+
+ * Config
+ * Query
+ * Candlestick
+ * Technical
+
  #### Price Alert
 
  * Create Price Alert
@@ -128,6 +142,71 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Modify Price Alert
  * Delete Price Alert
  * Enable/Disable Price Alert
+
+ ### Expired Historical Data Usage
+
+ | SDK Method | Description | Request Model / Params |
+ |---|---|---|
+ | `GetFuturesChain(model)` | Fetch futures chain for an index/symbol | `FuturesChainModel` |
+ | `GetHistoryExpiryDates(underlyingSymbol, rangeFrom, rangeTo, dateFormat)` | Fetch expiry dates for an underlying | — |
+ | `GetHistoryUnderlyingSymbols(underlyingSymbol, expiryDate)` | Fetch underlying symbols for an expiry | — |
+ | `GetHistoryFNOExpired(model)` | Fetch expired FNO historical candles | `HistoryFNOExpiredModel` |
+
+ ```java
+ FyersClass fyers = FyersClass.getInstance();
+ fyers.clientId = "YOUR_APP_ID";
+ fyers.accessToken = "YOUR_ACCESS_TOKEN";
+
+ FuturesChainModel futuresModel = new FuturesChainModel();
+ futuresModel.Symbol = "NSE:NIFTY50-INDEX";
+ fyers.GetFuturesChain(futuresModel);
+
+ fyers.GetHistoryExpiryDates("NSE:NIFTY50-INDEX", "2024-01-01", "2024-12-31", 1);
+
+ fyers.GetHistoryUnderlyingSymbols("NSE:NIFTY50-INDEX", "2024-11-28");
+
+ HistoryFNOExpiredModel historyModel = new HistoryFNOExpiredModel();
+ historyModel.Symbol = "NSE:NIFTY24NOV22500CE";
+ historyModel.Resolution = "5";
+ historyModel.DateFormat = "1";
+ historyModel.RangeFrom = "2024-11-01";
+ historyModel.RangeTo = "2024-11-28";
+ historyModel.Greeks = 1;
+ fyers.GetHistoryFNOExpired(historyModel);
+ ```
+
+ ### Screeners Usage
+
+ | SDK Method | Description | Request Model |
+ |---|---|---|
+ | `GetScreenersConfig()` | Fetch screener configuration | — |
+ | `GetScreenersQuery(model)` | Run a query-based screener | `ScreenersQueryModel` |
+ | `GetScreenersCandlestick(model)` | Run a candlestick pattern screener | `ScreenersCandlestickModel` |
+ | `GetScreenersTechnical(model)` | Run a technical indicator screener | `ScreenersTechnicalModel` |
+
+ ```java
+ FyersClass fyers = FyersClass.getInstance();
+ fyers.clientId = "YOUR_APP_ID";
+ fyers.accessToken = "YOUR_ACCESS_TOKEN";
+
+ fyers.GetScreenersConfig();
+
+ ScreenersQueryModel queryModel = new ScreenersQueryModel();
+ queryModel.Screener = "top_gainers";
+ queryModel.Universe = "iw001";
+ queryModel.Fields = "market_cap";
+ queryModel.OrderBy = "t0_per_change";
+ queryModel.Order = "desc";
+ fyers.GetScreenersQuery(queryModel);
+
+ ScreenersCandlestickModel candlestickModel = new ScreenersCandlestickModel();
+ candlestickModel.Screener = "dragonfly_doji";
+ fyers.GetScreenersCandlestick(candlestickModel);
+
+ ScreenersTechnicalModel technicalModel = new ScreenersTechnicalModel();
+ technicalModel.Screener = "macd_crossed_above_signal_line";
+ fyers.GetScreenersTechnical(technicalModel);
+ ```
 
  ## Web Socket
 
@@ -146,7 +225,9 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Market Data Lite-Mode
 
  ## Release Notes
-- Added modify Stop Loss and Take Profit for an existing open position with `positionId`, `stopLoss`, `takeProfit`, `legType`, and `qty` params
-
-
+ - Added `GetFuturesChain(FuturesChainModel)` — fetch futures chain for an index/symbol
+ - Added `GetHistoryExpiryDates(underlyingSymbol, rangeFrom, rangeTo, dateFormat)` — fetch expiry dates for an underlying
+ - Added `GetHistoryUnderlyingSymbols(underlyingSymbol, expiryDate)` — fetch contracts for an expiry date
+ - Added `GetHistoryFNOExpired(HistoryFNOExpiredModel)` — fetch expired FNO historical candles with `greeks` support
+ - Request models: `FuturesChainModel`, `HistoryFNOExpiredModel`
 
