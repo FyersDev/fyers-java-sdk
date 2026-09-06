@@ -1,0 +1,27 @@
+README.md
+  s_813464efb01490::t_7967d0ce8c7ce7 146-210
+  s_813464efb01490::t_e246bb4666826b 228-232
+  s_813464efb01490::t_84c4c5bf0d8a95 124-137
+  h_e5cd7b20a98a26 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "32175da0534686c0ff0066630c1b3f3350f65a80",
+  "prompts": {},
+  "humans": {
+    "h_e5cd7b20a98a26": {
+      "author": "kishore-fyers <kishorekumar@fyers.in>"
+    }
+  },
+  "sessions": {
+    "s_813464efb01490": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "7f19de9f-7ba8-49d5-9ff6-d4ec1f9d0f67",
+        "model": "default"
+      },
+      "human_author": "kishore-fyers <kishorekumar@fyers.in>"
+    }
+  }
+}
