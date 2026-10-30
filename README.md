@@ -1,5 +1,5 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v2.1.0
+# Fyers Java SDK : fyers-api-v3 - v2.1.1
 The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
 
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
@@ -118,6 +118,7 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  
  * History
  * Quotes
+ * Quotes V2 (`GetStockQuotesV2`, POST — symbols in the body, so many more per request)
  * Market Depth
  * Option Chain
 
@@ -179,10 +180,14 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
 
  | SDK Method | Description | Request Model |
  |---|---|---|
- | `GetScreenersConfig()` | Fetch screener configuration | — |
- | `GetScreenersQuery(model)` | Run a query-based screener | `ScreenersQueryModel` |
+ | `GetScreenersConfig()` | Fetch screener configuration (screener ids, universes, timeframes, expiries) | — |
+ | `GetScreenersStandard(model)` | Run a standard screener | `ScreenersStandardModel` |
  | `GetScreenersCandlestick(model)` | Run a candlestick pattern screener | `ScreenersCandlestickModel` |
  | `GetScreenersTechnical(model)` | Run a technical indicator screener | `ScreenersTechnicalModel` |
+
+ The screener is selected with `ScreenerId`, an id taken from the config response.
+ Only the params a screener lists as supported are accepted; anything else is
+ rejected by the API, so leave the rest unset.
 
  ```java
  FyersClass fyers = FyersClass.getInstance();
@@ -191,22 +196,24 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
 
  fyers.GetScreenersConfig();
 
- ScreenersQueryModel queryModel = new ScreenersQueryModel();
- queryModel.Screener = "top_gainers";
- queryModel.Universe = "iw001";
- queryModel.Fields = "market_cap";
- queryModel.OrderBy = "t0_per_change";
- queryModel.Order = "desc";
- fyers.GetScreenersQuery(queryModel);
+ ScreenersStandardModel standardModel = new ScreenersStandardModel();
+ standardModel.ScreenerId = "top_gainers";
+ standardModel.Universe = "iw010";
+ standardModel.Fields = "t0_close_ltp,t0_volume";
+ standardModel.OrderBy = "t0_change_per";
+ standardModel.Order = "desc";
+ standardModel.Timeframe = "t0_5min";
+ fyers.GetScreenersStandard(standardModel);
 
  ScreenersCandlestickModel candlestickModel = new ScreenersCandlestickModel();
- candlestickModel.Screener = "dragonfly_doji";
+ candlestickModel.ScreenerId = "dragonfly_doji";
  fyers.GetScreenersCandlestick(candlestickModel);
 
  ScreenersTechnicalModel technicalModel = new ScreenersTechnicalModel();
- technicalModel.Screener = "macd_crossed_above_signal_line";
+ technicalModel.ScreenerId = "macd_crossed_above_signal_line";
  fyers.GetScreenersTechnical(technicalModel);
  ```
+
 
  ## Web Socket
 
@@ -223,11 +230,4 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Market Data Indices Update
  * Market Data Depth Update
  * Market Data Lite-Mode
-
- ## Release Notes
- - Added `GetFuturesChain(FuturesChainModel)` — fetch futures chain for an index/symbol
- - Added `GetHistoryExpiryDates(underlyingSymbol, rangeFrom, rangeTo, dateFormat)` — fetch expiry dates for an underlying
- - Added `GetHistoryUnderlyingSymbols(underlyingSymbol, expiryDate)` — fetch contracts for an expiry date
- - Added `GetHistoryFNOExpired(HistoryFNOExpiredModel)` — fetch expired FNO historical candles with `greeks` support
- - Request models: `FuturesChainModel`, `HistoryFNOExpiredModel`
 
