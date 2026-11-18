@@ -1,5 +1,5 @@
 <a href="https://fyers.in/"><img src="https://assets.fyers.in/images/logo.svg" align="right" /></a>
-# Fyers Java SDK : fyers-api-v3 - v2.1.1
+# Fyers Java SDK : fyers-api-v3 - v2.2.0
 The official Fyers Java SDK for API-V3 Users [FYERS API](https://fyers.in/products/api/).
 
 Fyers API is a set of REST-like APIs that provide integration with our in-house trading platform with which you can build your own customized trading applications.
@@ -84,6 +84,8 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * GTT Modify Order
  * GTT Cancel Order
  * GTT Order Book
+ * GTT Market Orders (leg `Type`: 1 = limit, 2 = market)
+ * GTT Order Tag
 
  #### Smart Orders
 
@@ -143,6 +145,66 @@ Note: If the previous fyersjavasdk package is already in use, clear the Maven ca
  * Modify Price Alert
  * Delete Price Alert
  * Enable/Disable Price Alert
+
+ #### Kill Switch
+
+ * Get Kill Switch Status
+ * Activate Kill Switch
+
+ ### GTT Orders Usage
+
+ | SDK Method | Description | Request Model |
+ |---|---|---|
+ | `PlaceGTTOrder(list)` | Place GTT Single / OCO orders | `List<GTTModel>` |
+ | `ModifyGTTOrder(list)` | Modify GTT orders | `List<GTTModel>` |
+ | `CancelGTTOrder(id)` | Cancel a GTT order | — |
+ | `GetGTTOrderBook()` | Fetch the GTT order book | — |
+
+ Each leg is a `GTTLeg(type, price, triggerPrice, qty)`:
+ * `type`: `1` = limit, `2` = market (for market, `price` must be `0`).
+ * `price` and `triggerPrice` accept decimal values.
+ * `OrderTag` (optional, place only): stored as `"1:GTT" + tag`. When not set, the API uses `"2:GTTUntagged"`.
+
+ ```java
+ FyersClass fyers = FyersClass.getInstance();
+ fyers.clientId = "YOUR_APP_ID";
+ fyers.accessToken = "YOUR_ACCESS_TOKEN";
+
+ GTTModel model = new GTTModel();
+ model.Side = 1;
+ model.Symbol = "NSE:IDEA-EQ";
+ model.productType = "CNC";
+ model.OrderTag = "mytag";
+ model.addGTTLeg("leg1", new GTTLeg(1, 10.5, 10.4, 1));    // limit
+ // model.addGTTLeg("leg1", new GTTLeg(2, 0, 10.4, 1));   // market
+
+ List<GTTModel> orders = new ArrayList<>();
+ orders.add(model);
+ fyers.PlaceGTTOrder(orders);
+ ```
+
+ **Migrating from v2.1.1:** the `GTTLeg(price, triggerPrice, qty)` constructor is replaced by
+ `GTTLeg(type, price, triggerPrice, qty)`, and `Price` / `TriggerPrice` are now `double`.
+ Change `new GTTLeg(price, triggerPrice, qty)` to `new GTTLeg(1, price, triggerPrice, qty)` and recompile.
+ Code built against v2.1.1 must be recompiled before using this version.
+
+ ### Kill Switch Usage
+
+ | SDK Method | Description |
+ |---|---|
+ | `GetKillSwitchStatus()` | Fetch the current kill switch status |
+ | `ActivateKillSwitch()` | Activate the kill switch |
+
+ > **Warning:** `ActivateKillSwitch()` blocks trading on the account. Use it with care.
+
+ ```java
+ FyersClass fyers = FyersClass.getInstance();
+ fyers.clientId = "YOUR_APP_ID";
+ fyers.accessToken = "YOUR_ACCESS_TOKEN";
+
+ fyers.GetKillSwitchStatus();
+ // fyers.ActivateKillSwitch();
+ ```
 
  ### Expired Historical Data Usage
 
